@@ -5,6 +5,7 @@ import {
     setExpenses,
     startAddExpense,
     addExpense,
+    startEditExpense,
     editExpense,
     startRemoveExpense,
     removeExpense }
@@ -57,6 +58,28 @@ test('should setup edit expense action object', () => {
             amount: 123,
             description: 'Modified'
         }
+    });
+});
+
+test('should edit expense in database and store', (done) => {
+    const store = createMockStore({});
+    const id = expenses[2].id;
+    const updates = {
+        note: 'Edit...',
+        amount: 1001
+    };
+
+    store.dispatch(startEditExpense(id, updates)).then(() => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+            type: 'EDIT_EXPENSE',
+            id,
+            updates
+        });
+        return database.ref(`expenses/${id}`).once('value');
+    }).then((snapshot) => {
+        expect(snapshot.val().amount).toBe(updates.amount);
+        done();
     });
 });
 
