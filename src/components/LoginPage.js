@@ -12,6 +12,10 @@ export const LoginPage = ({ startLogin }) => (
     </div>
 );
 
+// const mapStateToProps = (state, props) => ({
+//     auth: props.match.params.id
+// });
+
 const mapDispatchToProps = (dispatch) => ({
     startLogin: () => dispatch(startLogin())
 });
