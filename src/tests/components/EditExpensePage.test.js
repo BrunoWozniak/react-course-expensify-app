@@ -29,6 +29,5 @@ test('should handle onSubmit', () => {
 
 test('should handle onRemove', () => {
     wrapper.find('button').simulate('click');
-    expect(history.push).toHaveBeenLastCalledWith('/');
-    expect(startRemoveExpense).toHaveBeenLastCalledWith({ id: expenses[2].id });
+    expect(wrapper.state('confirmDelete')).toBe(true);
 });

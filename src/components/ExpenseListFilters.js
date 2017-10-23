@@ -29,6 +29,12 @@ export class ExpenseListFilters extends React.Component {
       this.props.sortByAmount();
     }
   }
+
+  onShowAll = () => {
+    this.props.setStartDate(null);
+    this.props.setEndDate(null);
+    this.props.setTextFilter('');
+  }
   
   render() {
     return (
@@ -64,6 +70,14 @@ export class ExpenseListFilters extends React.Component {
               numberOfMonths={1}
               isOutsideRange={() => false}
             />
+          </div>
+          <div>
+            <button
+              className="button button--filter-bar"
+              onClick={this.onShowAll}
+            >
+              Show all
+            </button>
           </div>
         </div>
       </div>

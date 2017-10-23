@@ -125,6 +125,14 @@ exports[`should render ExpenseListFilters correctly 1`] = `
         withPortal={false}
       />
     </div>
+    <div>
+      <button
+        className="button button--filter-bar"
+        onClick={[Function]}
+      >
+        Show all
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -253,6 +261,14 @@ exports[`should render ExpenseListFilters with alt data correctly 1`] = `
         withFullScreenPortal={false}
         withPortal={false}
       />
+    </div>
+    <div>
+      <button
+        className="button button--filter-bar"
+        onClick={[Function]}
+      >
+        Show all
+      </button>
     </div>
   </div>
 </div>

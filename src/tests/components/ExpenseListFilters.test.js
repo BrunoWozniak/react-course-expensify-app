@@ -70,8 +70,15 @@ test('should handle date changes', () => {
   expect(setEndDate).toHaveBeenLastCalledWith(endDate);
 });
 
-test('hould handle date focus changes', () => {
+test('should handle date focus changes', () => {
   const calendarFocused = 'endDate';
   wrapper.find('withStyles(DateRangePicker)').prop('onFocusChange')(calendarFocused);
   expect(wrapper.state('calendarFocused')).toBe(calendarFocused);
+});
+
+test('should handle show all click', () => {
+  wrapper.find('button').simulate('click');
+  expect(setStartDate).toHaveBeenLastCalledWith(null);
+  expect(setEndDate).toHaveBeenLastCalledWith(null);
+  expect(setTextFilter).toHaveBeenLastCalledWith('');
 });
