@@ -1,23 +1,49 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Modal from 'react-modal';
 import ConfirmRemoveModal from '../../components/ConfirmRemoveModal';
 
-let startRemoveExpense, history, wrapper;
+let onCancelDelete, onConfirmDelete, wrapper;
 
-beforeEach(() => {
-    history = { push: jest.fn() };
-    wrapper = shallow(<ConfirmRemoveModal
-        confirmDelete={true}
-        history={history}
-    />);
+beforeAll(() => {
+    onCancelDelete = jest.fn();
+    onConfirmDelete = jest.fn();
 });
 
 test('should render ConfirmRemoveModal correctly', () => {
+    wrapper = shallow(<ConfirmRemoveModal
+        confirmDelete={true}
+        onCancelDelete={onCancelDelete}
+        onConfirmDelete={onConfirmDelete}
+    />);
     expect(wrapper).toMatchSnapshot();
 });
 
-// Missing: 'should handle onCancel' and 'should handle onConfirm'
-// test('should handle onCancel', () => {
-//     wrapper.find({ name: 'removeCancelButton' }).simulate('click');
-//     expect(wrapper.state('confirmDelete')).toBe(false);
-// });
+test('should render ConfirmRemoveModal correctly (not open)', () => {
+    wrapper = shallow(<ConfirmRemoveModal
+        confirmDelete={false}
+        onCancelDelete={onCancelDelete}
+        onConfirmDelete={onConfirmDelete}
+    />);
+    expect(wrapper).toMatchSnapshot();
+});
+
+test('should handle onCancel', () => {
+    wrapper = shallow(<ConfirmRemoveModal
+        confirmDelete={true}
+        onCancelDelete={onCancelDelete}
+        onConfirmDelete={onConfirmDelete}
+    />);
+    wrapper.find({ id: 'btnRemoveCancel' }).simulate('click');
+    expect(onCancelDelete).toHaveBeenCalled();
+});
+
+test('should handle onConfirm', () => {
+    wrapper = shallow(<ConfirmRemoveModal
+        confirmDelete={true}
+        onCancelDelete={onCancelDelete}
+        onConfirmDelete={onConfirmDelete}
+    />);
+    wrapper.find({ id: 'btnRemoveConfirm' }).simulate('click');
+    expect(onConfirmDelete).toHaveBeenCalled();
+});
